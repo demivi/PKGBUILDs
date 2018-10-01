@@ -15,7 +15,7 @@ depends=(
     'python2-pyopenssl'
     'python2-twisted')
 source=("https://github.com/mwrlabs/drozer/releases/download/2.4.4/drozer_2.4.4.deb")
-md5sums=('SKIP')
+md5sums=('fef0802db020d91eb33a8326da89dee9')
 
 prepare() {
     # Extract out data file 
