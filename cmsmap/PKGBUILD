@@ -17,5 +17,5 @@ pkgver() {
 
 package() {
   cd "$pkgname"
-  python2 setup.py install --root="$pkgdir" --optimize=1
+  python setup.py install --root="$pkgdir" --optimize=1
 }
