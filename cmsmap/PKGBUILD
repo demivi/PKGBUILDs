@@ -5,8 +5,7 @@ pkgdesc="Open source CMS scanner"
 arch=("x86_64")
 url="https://github.com/Dionach/CMSmap"
 license=("GPL")
-depends=("python3" "exploitdb" "git")
-makedepends=("python-setuptools")
+depends=("python3" "exploitdb" "git" "python-setuptools")
 source=("$pkgname"::"git+${url}.git")
 md5sums=("SKIP")
 
@@ -17,6 +16,5 @@ pkgver() {
 
 package() {
   cd "$pkgname"
-  sed -i "s|edbtype = apt|edbtype = git|" cmsmap/cmsmap.conf
   python setup.py install --root="$pkgdir" --optimize=1
 }
