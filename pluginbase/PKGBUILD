@@ -1,0 +1,21 @@
+pkgname=pluginbase
+pkgver=0.7
+pkgrel=1
+pkgdesc="A support library for building plugins sytems in Python"
+arch=("x86_64")
+url="https://github.com/mitsuhiko/pluginbase"
+license=("custom")
+depends=("python3")
+makedepends=("python-setuptools")
+source=("$pkgname"::"git+${url}.git")
+md5sums=("SKIP")
+
+pkgver() {
+  cd "$pkgname"
+  git describe --tags | sed "s/-/./g"
+}
+
+package() {
+  cd "$pkgname"
+  python2 setup.py install --root="$pkgdir" --optimize=1
+}
