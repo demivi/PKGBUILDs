@@ -9,3 +9,12 @@ The main reasons I created this repository are:
 - I want to experiment with pakage building and repositories
 
 Some of the PKGBUILD files are straight up stolen from AUR.
+
+## Usage
+
+Add the following lines to your `/etc/pacman.conf` then run `pacman -Sy`:
+```
+[rco]
+Server = https://github.com/demivi/PKGBUILDs/releases/download/current
+SigLevel = PackageOptional
+```
