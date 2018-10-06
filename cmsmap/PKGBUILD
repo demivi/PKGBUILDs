@@ -1,0 +1,21 @@
+pkgname=cmsmap
+pkgver=3100df9
+pkgrel=1
+pkgdesc="Open source CMS scanner"
+arch=("x86_64")
+url="https://github.com/Dionach/CMSmap"
+license=("GPL")
+depends=("python3")
+makedepends=("python-setuptools")
+source=("$pkgname"::"git+${url}.git")
+md5sums=("SKIP")
+
+pkgver() {
+  cd "$pkgname"
+  git rev-parse --short HEAD
+}
+
+package() {
+  cd "$pkgname"
+  python2 setup.py install --root="$pkgdir" --optimize=1
+}
