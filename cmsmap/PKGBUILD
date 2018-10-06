@@ -1,4 +1,4 @@
-pkgname=cmsmap
+pkgname=nr-cmsmap
 pkgver=3100df9
 pkgrel=1
 pkgdesc="Open source CMS scanner"
