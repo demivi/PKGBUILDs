@@ -1,4 +1,4 @@
-pkgname=pluginbase
+pkgname=python-pluginbase
 pkgver=0.7
 pkgrel=1
 pkgdesc="A support library for building plugins sytems in Python"
