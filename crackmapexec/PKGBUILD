@@ -1,0 +1,48 @@
+pkgname='crackmapexec'
+pkgver=v3.1.5.123.gea3402d
+pkgrel=1
+pkgdesc='A swiss army knife for pentesting Windows/Active Directory environments.'
+url='https://github.com/byt3bl33d3r/CrackMapExec'
+arch=('i686' 'x86_64')
+license=('custom')
+depends=('python2')
+makedepends=('git' 'gcc' 'python2-pip' 'python2-setuptools')
+options=('!strip' '!emptydirs')
+source=("git+https://github.com/byt3bl33d3r/CrackMapExec.git")
+sha1sums=('SKIP')
+
+pkgver() {
+  cd "CrackMapExec"
+  git describe --tags | sed "s/-/./g"
+}
+
+prepare() {
+  cd "CrackMapExec"
+
+  git submodule init && git submodule update --recursive
+}
+
+build() {
+  cd "CrackMapExec"
+
+  install -d "vendor/lib/python2.7/site-packages/"
+  echo "setuptools" >> requirements.txt
+  PYTHONUSERBASE="${srcdir}/CrackMapExec/vendor" pip2 install --user --ignore-installed --requirement requirements.txt
+}
+
+package() {
+  cd "CrackMapExec"
+
+  install -d "$pkgdir/usr/bin" "$pkgdir/usr/share/${pkgname}"
+  python2 setup.py --no-user-cfg install --prefix="$pkgdir/usr/share/${pkgname}" --single-version-externally-managed --record=installed.txt
+  cp -r vendor "$pkgdir/usr/share/${pkgname}"
+
+  find "$pkgdir/usr/share/${pkgname}/lib/python2.7/site-packages/cme/" -type f -name '*.py' -exec sed 's|/bin/python|/bin/python2|' -i {} \;
+
+  local _binaries='cme crackmapexec cmedb'
+  for bin in $_binaries; do
+    local _wrapper="$pkgdir/usr/bin/$bin"
+    echo -e "#!/bin/sh\nPYTHONPATH="/usr/share/${pkgname}/bin:/usr/share/${pkgname}/lib/python2.7/site-packages:/usr/share/${pkgname}/vendor/lib/python2.7/site-packages" exec python2 /usr/share/${pkgname}/bin/$bin \"\${@}\"" > "${_wrapper}"
+    chmod 755 "${_wrapper}"
+  done
+}
