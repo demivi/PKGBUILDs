@@ -15,8 +15,8 @@ Some of the PKGBUILD files are straight up stolen from AUR.
 Add the following lines to your `/etc/pacman.conf` then run `pacman -Sy`:
 ```
 [adv]
-Server = https://github.com/demivi/PKGBUILDs/releases/download/current
 SigLevel = PackageOptional
+Server = https://github.com/demivi/PKGBUILDs/releases/download/current
 ```
 
 ## nr packages
