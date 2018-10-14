@@ -1,17 +1,21 @@
 # Maintainer: Gregoire Lodi <gregoire.lodi@gmail.com>
 
 pkgname=wafw00f
-pkgver=0.9.4
+pkgver=v0.9.5.4.g7d25aca
 pkgrel=1
 pkgdesc="Web Application Firewall Detection Tool"
 arch=("i686" "x86_64")
 url="https://github.com/EnableSecurity/wafw00f"
 license=("GPL")
-depends=("python3" "python-beautifulsoup4" "pluginbase")
-makedepends=("python-setuptools")
+depends=("python" "python-beautifulsoup4" "python-pluginbase")
+makedepends=("git" "python-setuptools")
 source=("$pkgname"::"git+${url}.git")
-noextract=()
 md5sums=("SKIP")
+
+pkgver() {
+  cd "$pkgname"
+  git describe --tags | sed "s/-/./g"
+}
 
 build() {
   cd "${srcdir}/${pkgname}"
