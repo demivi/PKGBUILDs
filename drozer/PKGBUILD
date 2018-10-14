@@ -7,8 +7,7 @@ url='https://labs.mwrinfosecurity.com/tools/drozer'
 license=('bsd')
 options=('!strip')
 depends=('bash' 'python2' 'python2-protobuf' 'python2-pyopenssl' 'python2-twisted' 'jdk7-openjdk' 'android-tools' 'usbutils')
-
-makedepends+=('git')
+makedepends=('git')
 source=('git+https://github.com/mwrlabs/drozer.git')
 md5sums=('SKIP')
 
