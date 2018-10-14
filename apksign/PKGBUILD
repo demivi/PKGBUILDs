@@ -1,0 +1,23 @@
+pkgname=apksign
+pkgver=1
+pkgrel=1
+pkgdesc="Automatically sign an apk with the Android test certificate"
+arch=("x86_64")
+url="https://github.com/appium/sign"
+license=("Apache")
+depends=('java-runtime')
+source=("https://github.com/appium/sign/raw/master/dist/sign.jar")
+noextract=("sign.jar")
+md5sums=("SKIP")
+
+package() {
+  install -Dm644 "sign.jar" "$pkgdir/usr/share/java/apksign/sign.jar"
+
+  mkdir -p ${pkgdir}/usr/bin
+  cat > "$pkgdir/usr/bin/apksign" << EOF
+#!/bin/sh
+exec "$JAVA_HOME/bin/java" -jar /usr/share/java/apksign/sign.jar "\$@"
+EOF
+
+  chmod a+x "$pkgdir/usr/bin/apksign"
+}
