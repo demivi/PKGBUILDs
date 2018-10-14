@@ -7,6 +7,7 @@ url="http://www.benf.org/other/cfr/"
 license=("MIT")
 depends=('java-runtime')
 source=("http://www.benf.org/other/cfr/cfr_${pkgver}.jar")
+noextract=("cfr_${pkgver}.jar")
 md5sums=("SKIP")
 
 package() {
