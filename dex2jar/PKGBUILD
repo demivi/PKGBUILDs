@@ -10,13 +10,11 @@ source=("http://sourceforge.net/projects/dex2jar/files/${pkgname}-${pkgver}.zip"
 md5sums=("SKIP")
 
 package() {
-  install -d "${pkgdir}/usr/lib/${pkgname}/lib"
-  install -d "${pkgdir}/usr/bin/"
-
   cd "${srcdir}/${pkgname}-${pkgver}"
 
-  install -m 755 *.sh "${pkgdir}/usr/lib/${pkgname}/" 
-  install -m 644 lib/* "${pkgdir}/usr/lib/${pkgname}/lib/" 
+  install -Dm 0755 -t "${pkgdir}/usr/lib/${pkgname}/" *.sh
+  install -Dm 0644 -t "${pkgdir}/usr/lib/${pkgname}/lib/" lib/*
 
+  install -d "${pkgdir}/usr/bin/"
   ln -s /usr/lib/dex2jar/d2j-dex2jar.sh "${pkgdir}/usr/bin/dex2jar"
 }
