@@ -18,6 +18,7 @@ Add the following lines to your `/etc/pacman.conf` then run `pacman -Sy`:
 SigLevel = PackageOptional
 Server = https://github.com/demivi/PKGBUILDs/releases/download/current
 ```
+If you want packages in mcar to take precedence over other repositories, put those tree lines higher up in your configuration file.
 
 ## nr packages
 
