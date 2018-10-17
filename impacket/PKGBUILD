@@ -1,7 +1,7 @@
 # Maintainer: Paul Taylor <bao7uo at gmail dot com>
 
 pkgname=impacket
-pkgver=impacket_0_9_17.48.g4473816f
+pkgver=0_9_17.48.g4473816f
 pkgrel=1
 pkgdesc="Latest Impacket including new features, particularly in the examples scripts"
 arch=('any')
@@ -14,7 +14,7 @@ md5sums=("SKIP")
 
 pkgver() {
   cd "$pkgname"
-  git describe --tags | sed "s/-/./g"
+  git describe --tags | sed "s/impacket_//" | sed "s/-/./g"
 }
 
 package() {
