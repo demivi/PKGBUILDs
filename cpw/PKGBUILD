@@ -1,5 +1,5 @@
 pkgname=cpw
-pkgver=0.1
+pkgver=d835f27
 pkgrel=1
 pkgdesc="A Docker Compose wrapper"
 arch=("x86_64")
@@ -8,6 +8,11 @@ license=("MIT")
 depends=('bash' 'docker' 'docker-compose')
 source=("$pkgname"::"git+${url}.git")
 md5sums=("SKIP")
+
+pkgver() {
+  cd "${srcdir}/${pkgname}"
+  git rev-parse --short HEAD
+}
 
 package() {
   cd "${srcdir}/${pkgname}"
