@@ -1,23 +1,18 @@
 pkgname=cpw
-pkgver=d835f27
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="A Docker Compose wrapper"
 arch=("x86_64")
 url="https://github.com/demivi/cpw"
 license=("MIT")
 depends=('bash' 'docker' 'docker-compose')
-source=("$pkgname"::"git+${url}.git")
+source=("$pkgname"::"https://codeload.github.com/demivi/cpw/tar.gz/${pkgver}")
 md5sums=("SKIP")
 
-pkgver() {
-  cd "${srcdir}/${pkgname}"
-  git rev-parse --short HEAD
-}
-
 package() {
-  cd "${srcdir}/${pkgname}"
+  cd "${srcdir}/${pkgname}-${pkgver}"
 
-  install -Dm 0755 cpw.sh "$pkgdir/usr/lib/cpw.sh"
+  install -Dm 0755 cpw.sh "$pkgdir/usr/lib/cpw/cpw.sh"
   rm cpw.sh
 
   install -dm 0755 "${pkgdir}/etc/${pkgname}/"
