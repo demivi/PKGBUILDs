@@ -22,7 +22,7 @@ package() {
   cat > "$pkgdir/usr/bin/cpw" << EOF
 #!/bin/sh
 cd /etc/cpw/
-exec /usr/lib/cpw.sh "\$@"
+exec /usr/lib/cpw/cpw.sh "\$@"
 EOF
 
   chmod a+x "$pkgdir/usr/bin/cpw"
