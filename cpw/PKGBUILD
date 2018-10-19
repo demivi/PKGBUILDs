@@ -19,7 +19,7 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   install -Dm 0755 cpw.sh "$pkgdir/usr/lib/cpw/cpw.sh"
-  rm cpw.sh
+  rm cpw.sh README.md LICENSE
 
   install -dm 0755 "${pkgdir}/etc/cpw/"
   cp -r * "${pkgdir}/etc/cpw/"
