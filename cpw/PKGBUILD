@@ -15,13 +15,13 @@ package() {
   install -Dm 0755 cpw.sh "$pkgdir/usr/lib/cpw/cpw.sh"
   rm cpw.sh
 
-  install -dm 0755 "${pkgdir}/etc/${pkgname}/"
-  cp -r * "${pkgdir}/etc/${pkgname}/"
+  install -dm 0755 "${pkgdir}/etc/cpw.d/"
+  cp -r * "${pkgdir}/etc/cpw.d/"
 
   install -dm 0755 "${pkgdir}/usr/bin/"
   cat > "$pkgdir/usr/bin/cpw" << EOF
 #!/bin/sh
-cd /etc/cpw/
+cd /etc/cpw.d/
 exec /usr/lib/cpw/cpw.sh "\$@"
 EOF
 
