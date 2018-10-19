@@ -5,7 +5,7 @@ pkgdesc="A Docker Compose wrapper"
 arch=("x86_64")
 url="https://github.com/demivi/cpw"
 license=("MIT")
-depends=('bash' 'docker' 'docker-compose')
+depends=('bash' 'docker' 'docker-compose' 'openbsd-netcat')
 source=("$pkgname"::"https://codeload.github.com/demivi/cpw/tar.gz/${pkgver}")
 md5sums=("SKIP")
 
