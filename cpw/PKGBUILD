@@ -8,6 +8,12 @@ license=("MIT")
 depends=('bash' 'docker' 'docker-compose' 'openbsd-netcat')
 source=("$pkgname"::"https://codeload.github.com/demivi/cpw/tar.gz/${pkgver}")
 md5sums=("SKIP")
+backup=('etc/cpw/docker-compose.yml'
+        'etc/cpw/base/Dockerfile'
+        'etc/cpw/int/Dockerfile'
+        'etc/cpw/mob/Dockerfile'
+        'etc/cpw/web/Dockerfile'
+        'etc/cpw/wifi/Dockerfile')
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -15,13 +21,13 @@ package() {
   install -Dm 0755 cpw.sh "$pkgdir/usr/lib/cpw/cpw.sh"
   rm cpw.sh
 
-  install -dm 0755 "${pkgdir}/etc/cpw.d/"
-  cp -r * "${pkgdir}/etc/cpw.d/"
+  install -dm 0755 "${pkgdir}/etc/cpw/"
+  cp -r * "${pkgdir}/etc/cpw/"
 
   install -dm 0755 "${pkgdir}/usr/bin/"
   cat > "$pkgdir/usr/bin/cpw" << EOF
 #!/bin/sh
-cd /etc/cpw.d/
+cd /etc/cpw/
 exec /usr/lib/cpw/cpw.sh "\$@"
 EOF
 
