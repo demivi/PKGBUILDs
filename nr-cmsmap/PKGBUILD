@@ -1,21 +1,21 @@
 pkgname=nr-cmsmap
-pkgver=cee25a7
+pkgver=20181010
 pkgrel=1
-pkgdesc="Open source CMS scanner"
-arch=("x86_64")
-url="https://github.com/Dionach/CMSmap"
-license=("GPL")
-depends=("python" "exploitdb" "git")
-makedepends=("python-setuptools")
+pkgdesc='Open source CMS scanner'
+arch=('x86_64')
+url='https://github.com/Dionach/CMSmap'
+license=('GPL')
+depends=('python' 'exploitdb' 'git')
+makedepends=('python-setuptools')
 source=("git+${url}.git")
-md5sums=("SKIP")
+md5sums=('SKIP')
 
 pkgver() {
-  cd "$srcdir/CMSmap"
-  git rev-parse --short HEAD
+  cd $srcdir/CMSmap
+  git log -1 --date=short --pretty=format:%cd | sed "s/-//g"
 }
 
 package() {
-  cd "$srcdir/CMSmap"
+  cd $srcdir/CMSmap
   python setup.py install --root="$pkgdir" --optimize=1
 }

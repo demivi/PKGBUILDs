@@ -1,32 +1,32 @@
 pkgname=enum4linux
-pkgver=10de197
+pkgver=20180315
 pkgrel=1
-pkgdesc="A tool for information enumeration on Windows and Samba hosts"
+pkgdesc='A tool for information enumeration on Windows and Samba hosts'
 arch=('any')
-url="http://labs.portcullis.co.uk/application/enum4linux/"
+url='http://labs.portcullis.co.uk/application/enum4linux/'
 license=('GPL')
 depends=('perl' 'smbclient' 'polenum' 'openldap')
-source=("git+https://github.com/portcullislabs/enum4linux.git")
-md5sums=("SKIP")
+source=('git+https://github.com/portcullislabs/enum4linux.git')
+md5sums=('SKIP')
 
 pkgver() {
-  cd "$srcdir/enum4linux"
-  git rev-parse --short HEAD
+  cd $srcdir/enum4linux
+  git log -1 --date=short --pretty=format:%cd | sed "s/-//g"
 }
 
 prepare() {
-  cd "$srcdir/enum4linux"
-  sed -i 's|polenum.py|polenum|' ${pkgname}.pl
+  cd $srcdir/enum4linux
+  sed -i 's|polenum.py|polenum|' $pkgname.pl
 }
 
 package() {
-  cd "$srcdir/enum4linux"
+  cd $srcdir/enum4linux
 
-  install -Dm755 enum4linux.pl "$pkgdir/usr/bin/enum4linux"
-  install -Dm644 share-list.txt "$pkgdir/usr/share/enum4linux/share-list.txt"
+  install -Dm755 enum4linux.pl $pkgdir/usr/bin/enum4linux
+  install -Dm644 share-list.txt $pkgdir/usr/share/enum4linux/share-list.txt
 
-  install -dm0755 $pkgdir/etc/samba/
-  install -dm0755 $pkgdir/var/lib/samba/private/
+  install -dm755 $pkgdir/etc/samba/
+  install -dm755 $pkgdir/var/lib/samba/private/
 
   touch $pkgdir/etc/samba/smb.conf
   touch $pkgdir/var/lib/samba/private/secrets.tdb

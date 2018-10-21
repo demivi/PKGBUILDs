@@ -4,19 +4,19 @@ pkgrel=1
 pkgdesc='Comprehensive security and attack framework for Android'
 arch=('x86_64')
 url='https://labs.mwrinfosecurity.com/tools/drozer'
-license=('bsd')
+license=('BSD')
 options=('!strip')
-depends=('bash' 'python2' 'python2-protobuf' 'python2-pyopenssl' 'python2-twisted' 'jdk7-openjdk' 'android-tools' 'usbutils')
+depends=('android-tools' 'bash' 'jdk7-openjdk' 'python2' 'python2-protobuf' 'python2-pyopenssl' 'python2-twisted' 'usbutils')
 makedepends=('git')
 source=('git+https://github.com/mwrlabs/drozer.git')
 md5sums=('SKIP')
 
 pkgver() {
-  cd "$pkgname"
+  cd $pkgname
   git describe --tags | sed "s/-/./g"
 }
 
 package() {
-  cd "$pkgname"
+  cd $pkgname
   python2 setup.py install --root="$pkgdir" --optimize=1
 }

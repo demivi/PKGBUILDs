@@ -1,23 +1,23 @@
 pkgname=cfr
 pkgver=0_133
 pkgrel=1
-pkgdesc="Another Java decompiler"
-arch=("x86_64")
-url="http://www.benf.org/other/cfr/"
-license=("MIT")
+pkgdesc='Another Java decompiler'
+arch=('x86_64')
+url='http://www.benf.org/other/cfr/'
+license=('MIT')
 depends=('java-runtime')
-source=("http://www.benf.org/other/cfr/cfr_${pkgver}.jar")
-noextract=("cfr_${pkgver}.jar")
-md5sums=("SKIP")
+source=("http://www.benf.org/other/cfr/cfr_$pkgver.jar")
+noextract=("cfr_$pkgver.jar")
+md5sums=('SKIP')
 
 package() {
-  install -Dm644 "cfr_${pkgver}.jar" "$pkgdir/usr/share/java/cfr/cfr.jar"
+  install -Dm644 cfr_$pkgver.jar $pkgdir/usr/lib/cfr/cfr.jar
 
-  mkdir -p ${pkgdir}/usr/bin
-  cat > "$pkgdir/usr/bin/cfr" << EOF
+  install -dm755 $pkgdir/usr/bin
+  cat > $pkgdir/usr/bin/cfr << EOF
 #!/bin/sh
-exec "$JAVA_HOME/bin/java" -jar /usr/share/java/cfr/cfr.jar "\$@"
+exec "$JAVA_HOME/bin/java" -jar /usr/lib/cfr/cfr.jar "\$@"
 EOF
 
-  chmod a+x "$pkgdir/usr/bin/cfr"
+  chmod a+x $pkgdir/usr/bin/cfr
 }
