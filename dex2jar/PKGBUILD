@@ -1,0 +1,33 @@
+pkgname=dex2jar
+pkgver=20180905
+pkgrel=1
+pkgdesc='Tools to work with android .dex and java .class files'
+arch=('x86_64')
+url='https://github.com/pxb1988/dex2jar'
+license=('Apache')
+depends=('bash' 'java-runtime')
+makedepends=('gradle' 'java-environment')
+source=("git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$pkgname"
+  git log -1 --date=short --pretty=format:%cd | sed "s/-//g"
+}
+
+build() {
+  cd "$srcdir/$pkgname"
+  gradle clean installDist
+}
+
+package() {
+  cd "$srcdir/$pkgname"/dex-tools/build/install/dex-tools/
+
+  install -Dm 755 -t "$pkgdir/usr/lib/$pkgname/" *.sh
+  install -Dm 644 -t "$pkgdir/usr/lib/$pkgname/lib/" lib/*
+
+  install -d "$pkgdir/usr/bin/"
+  for bin in d2j-*.sh; do
+    ln -s /usr/lib/dex2jar/$bin "$pkgdir/usr/bin/${bin%.*}"
+  done
+}
