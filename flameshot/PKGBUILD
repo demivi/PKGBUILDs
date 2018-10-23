@@ -1,5 +1,5 @@
 pkgname=flameshot
-pkgver=r500.7d91b00
+pkgver=v0.6.0.21.g7d91b00
 pkgrel=1
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('i686' 'x86_64')
@@ -7,16 +7,12 @@ url="https://github.com/lupoDharkael/flameshot"
 license=('GPL')
 depends=('qt5-base' 'qt5-svg')
 makedepends=('qt5-tools' 'gcc' 'make')
-provides=('flameshot-git')
-conflicts=('flameshot')
 source=("git+https://github.com/lupoDharkael/flameshot.git")
 sha256sums=('SKIP')
 
 pkgver() {
   cd "${srcdir}/${pkgname}"
-
-  # Get the version number.
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  git describe --tags | sed "s/-/./g"
 }
 
 prepare() {
