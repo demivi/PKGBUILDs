@@ -6,8 +6,8 @@ arch=('x86_64')
 url='https://labs.mwrinfosecurity.com/tools/drozer'
 license=('BSD')
 options=('!strip')
-depends=('android-tools' 'bash' 'jdk7-openjdk' 'python2' 'python2-protobuf' 'python2-pyopenssl' 'python2-twisted' 'usbutils')
-makedepends=('git')
+depends=('android-tools' 'bash' 'java-runtime=8' 'python2' 'python2-protobuf' 'python2-pyopenssl' 'python2-twisted' 'usbutils')
+makedepends=('git' 'jdk7-openjdk')
 source=('git+https://github.com/mwrlabs/drozer.git')
 md5sums=('SKIP')
 
@@ -18,5 +18,6 @@ pkgver() {
 
 package() {
   cd $pkgname
+  export PATH=$PATH:/usr/lib/jvm/java-7-openjdk/bin/
   python2 setup.py install --root="$pkgdir" --optimize=1
 }
