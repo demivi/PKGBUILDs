@@ -1,13 +1,13 @@
 pkgname=jtool
-pkgver=0.2.3
+pkgver=1.0
 pkgrel=1
 pkgdesc='Mach-O binary inspection tool'
 arch=('x86_64')
-url='http://newosxbook.com/forum/viewtopic.php?f=3&t=19577'
+url='http://www.newosxbook.com/tools/jtool.html'
 license=('custom')
-source=('http://newosxbook.com/tools/jtool2.tgz')
+source=('http://www.newosxbook.com/tools/jtool.tar')
 md5sums=('SKIP')
 
 package() {
-  install -Dm755 ${srcdir}/jtool2.ELF64 ${pkgdir}/usr/bin/jtool
+  install -Dm755 ${srcdir}/jtool.ELF64 ${pkgdir}/usr/bin/jtool
 }
