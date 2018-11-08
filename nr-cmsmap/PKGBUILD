@@ -5,8 +5,7 @@ pkgdesc='Open source CMS scanner'
 arch=('x86_64')
 url='https://github.com/Dionach/CMSmap'
 license=('GPL')
-depends=('python' 'exploitdb' 'git')
-makedepends=('python-setuptools')
+depends=('python' 'exploitdb' 'git' 'python-setuptools')
 source=("git+${url}.git")
 md5sums=('SKIP')
 
