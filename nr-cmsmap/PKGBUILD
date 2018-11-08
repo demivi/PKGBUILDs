@@ -1,5 +1,5 @@
 pkgname=nr-cmsmap
-pkgver=20181010
+pkgver=20181026
 pkgrel=1
 pkgdesc='Open source CMS scanner'
 arch=('x86_64')
