@@ -1,43 +1,33 @@
 pkgname=flameshot
-pkgver=v0.6.0.21.g7d91b00
+pkgver=v0.6.0.23.g35459e1
 pkgrel=1
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('i686' 'x86_64')
 url="https://github.com/lupoDharkael/flameshot"
 license=('GPL')
-depends=('qt5-base' 'qt5-svg')
+depends=('qt5-svg')
 makedepends=('qt5-tools' 'gcc' 'make')
-source=("git+https://github.com/lupoDharkael/flameshot.git")
-sha256sums=('SKIP')
+source=("$pkgname"::"git+${url}.git" 
+        "https://raw.githubusercontent.com/demivi/PKGBUILDs/master/flameshot/clipboard.patch")
+md5sums=('SKIP' 'SKIP')
 
 pkgver() {
-  cd "${srcdir}/${pkgname}"
+  cd $srcdir/$pkgname
   git describe --tags | sed "s/-/./g"
 }
 
 prepare() {
-  # Patch flameshot to be able to save and copy to clipboard at the same time
-  cd "${srcdir}/${pkgname}/src"
-  sed -i 's/m << pathValue << delay << id;/m << pathValue << toClipboard << delay << id;/' main.cpp
-  sed -i 's/parser.AddOptions({ pathOption, delayOption, rawImageOption }, guiArgument);/parser.AddOptions({ pathOption, delayOption, rawImageOption, clipboardOption }, guiArgument);/' main.cpp
-  sed -i '/\/\/ GUI/a\\tbool toClipboard = parser.isSet(clipboardOption);' main.cpp
-  sed -i '/CaptureRequest req(CaptureRequest::GRAPHICAL_MODE, delay, pathValue);/a\\tif (toClipboard) {\n\treq.addTask(CaptureRequest::CLIPBOARD_SAVE_TASK);\n\t}' main.cpp
-  cd "${srcdir}/${pkgname}/src/core"
-  sed -i 's/Q_NOREPLY void graphicCapture(QString path, int delay, uint id);/Q_NOREPLY void graphicCapture(QString path, bool toClipboard, int delay, uint id);/' flameshotdbusadapter.h
-  sed -i 's/void FlameshotDBusAdapter::graphicCapture(QString path, int delay, uint id) {/void FlameshotDBusAdapter::graphicCapture(QString path, bool toClipboard, int delay, uint id) {/' flameshotdbusadapter.h
-  sed -i 's/void FlameshotDBusAdapter::graphicCapture(QString path, int delay, uint id) {/void FlameshotDBusAdapter::graphicCapture(QString path, bool toClipboard, int delay, uint id) {/' flameshotdbusadapter.cpp
-  sed -i 's/\/\/    if (toClipboard) {/\    if (toClipboard) {/' flameshotdbusadapter.cpp
-  sed -i 's/\/\/        req.addTask(CaptureRequest::CLIPBOARD_SAVE_TASK);/\        req.addTask(CaptureRequest::CLIPBOARD_SAVE_TASK);/' flameshotdbusadapter.cpp
-  sed -i 's/\/\/    }/\    }/' flameshotdbusadapter.cpp
+  cd $srcdir/$pkgname
+  patch -Np1 -i ${srcdir}/clipboard.patch
 }
 
 build() {
-  cd "${srcdir}/${pkgname}"
+  cd $srcdir/$pkgname
   qmake CONFIG+=packaging
   make
 }
 
 package() {
-  cd "${srcdir}/${pkgname}"
-  make INSTALL_ROOT="${pkgdir}" install
+  cd $srcdir/$pkgname
+  make INSTALL_ROOT=$pkgdir install
 }

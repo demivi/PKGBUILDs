@@ -1,0 +1,69 @@
+diff -ura flameshot.orig/src/core/flameshotdbusadapter.cpp flameshot.new/src/core/flameshotdbusadapter.cpp
+--- flameshot.orig/src/core/flameshotdbusadapter.cpp	2018-11-10 20:04:04.151892091 +0100
++++ flameshot.new/src/core/flameshotdbusadapter.cpp	2018-11-10 20:18:35.130558769 +0100
+@@ -36,11 +36,13 @@
+ 
+ }
+ 
+-void FlameshotDBusAdapter::graphicCapture(QString path, int delay, uint id) {
++void FlameshotDBusAdapter::graphicCapture(
++        QString path, bool toClipboard, int delay, uint id)
++{
+     CaptureRequest req(CaptureRequest::GRAPHICAL_MODE, delay, path);
+-//    if (toClipboard) {
+-//        req.addTask(CaptureRequest::CLIPBOARD_SAVE_TASK);
+-//    }
++    if (toClipboard) {
++        req.addTask(CaptureRequest::CLIPBOARD_SAVE_TASK);
++    }
+     req.setStaticID(id);
+     Controller::getInstance()->requestCapture(req);
+ }
+diff -ura flameshot.orig/src/core/flameshotdbusadapter.h flameshot.new/src/core/flameshotdbusadapter.h
+--- flameshot.orig/src/core/flameshotdbusadapter.h	2018-11-10 20:04:04.151892091 +0100
++++ flameshot.new/src/core/flameshotdbusadapter.h	2018-11-10 20:18:59.970081937 +0100
+@@ -33,7 +33,7 @@
+     void captureFailed(uint id);
+ 
+ public slots:
+-    Q_NOREPLY void graphicCapture(QString path, int delay, uint id);
++    Q_NOREPLY void graphicCapture(QString path, bool toClipboard, int delay, uint id);
+     Q_NOREPLY void fullScreen(QString path, bool toClipboard, int delay, uint id);
+     Q_NOREPLY void captureScreen(int number, QString path, bool toClipboard, int delay, uint id);
+     Q_NOREPLY void openConfig();
+diff -ura flameshot.orig/src/main.cpp flameshot.new/src/main.cpp
+--- flameshot.orig/src/main.cpp	2018-11-10 20:04:04.148558828 +0100
++++ flameshot.new/src/main.cpp	2018-11-10 20:08:17.023205190 +0100
+@@ -193,8 +193,9 @@
+     parser.AddArgument(configArgument);
+     auto helpOption = parser.addHelpOption();
+     auto versionOption = parser.addVersionOption();
+-    parser.AddOptions({ pathOption, delayOption, rawImageOption }, guiArgument);
+-    parser.AddOptions({ screenNumberOption, clipboardOption,pathOption,
++    parser.AddOptions({ pathOption, clipboardOption, delayOption, rawImageOption }, 
++                      guiArgument);
++    parser.AddOptions({ screenNumberOption, clipboardOption, pathOption,
+                         delayOption, rawImageOption },
+                       screenArgument);
+     parser.AddOptions({ pathOption, clipboardOption, delayOption, rawImageOption },
+@@ -214,15 +215,19 @@
+     else if (parser.isSet(guiArgument)) { // GUI
+         QString pathValue = parser.value(pathOption);
+         int delay = parser.value(delayOption).toInt();
++        bool toClipboard = parser.isSet(clipboardOption);
+         bool isRaw = parser.isSet(rawImageOption);
+         DBusUtils dbusUtils;
+         CaptureRequest req(CaptureRequest::GRAPHICAL_MODE, delay, pathValue);
++        if (toClipboard) {
++            req.addTask(CaptureRequest::CLIPBOARD_SAVE_TASK);
++        }
+         uint id = req.id();
+ 
+         // Send message
+         QDBusMessage m = QDBusMessage::createMethodCall(QStringLiteral("org.dharkael.Flameshot"),
+                                            QStringLiteral("/"), QLatin1String(""), QStringLiteral("graphicCapture"));
+-        m << pathValue << delay << id;
++        m << pathValue << toClipboard << delay << id;
+         QDBusConnection sessionBus = QDBusConnection::sessionBus();
+         dbusUtils.checkDBusConnection(sessionBus);
+         sessionBus.call(m);
