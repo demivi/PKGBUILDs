@@ -1,0 +1,21 @@
+pkgname=polenum
+pkgver=1.4
+pkgrel=1
+pkgdesc='Get the password policy from a windows machine'
+arch=('any')
+url='https://github.com/Wh1t3Fox/polenum'
+license=('GPL3')
+depends=('impacket' 'python2')
+source=("$pkgname"::"git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed "s/-/./g"
+}
+
+package() {
+  cd $pkgname
+  install -dm755 "$pkgdir/usr/bin"
+  install -m755 polenum.py "$pkgdir/usr/bin/polenum"
+}
