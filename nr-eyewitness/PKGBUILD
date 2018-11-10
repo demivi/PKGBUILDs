@@ -1,18 +1,17 @@
-pkgname='nr-eyewitness'
+pkgname=nr-eyewitness
 pkgver=725.e9532ac
 pkgrel=1
-groups=('blackarch' 'blackarch-webapp' 'blackarch-recon' 'blackarch-misc')
-pkgdesc='Designed to take screenshots of websites, provide some server header info, and identify default credentials if possible.'
+pkgdesc='Take screenshots of websites, RDP services, and open VNC servers'
 arch=('any')
-url='https://github.com/ChrisTruncer/EyeWitness'
+url='https://github.com/FortyNorthSecurity/EyeWitness'
 license=('GPL3')
 depends=('python2' 'python2-pyqt4' 'python2-netaddr' 'ghost-py' 'python2-rdpy'
          'python2-selenium' 'python2-rsa' 'xorg-server-xvfb'
          'python2-beautifulsoup4' 'python2-pyvirtualdisplay'
          'python2-easyprocess' 'python2-pytesseract' 'python2-selenium' 'python2-fuzzywuzzy' 'geckodriver' 'firefox')
 makedepends=('git')
-source=('git+https://github.com/FortyNorthSecurity/EyeWitness.git')
-sha512sums=('SKIP')
+source=("git+${url}.git")
+md5sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/EyeWitness"
