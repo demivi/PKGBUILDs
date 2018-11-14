@@ -11,23 +11,24 @@ source=("git+${url}.git")
 md5sums=('SKIP')
 
 pkgver() {
-  cd "$srcdir/$pkgname"
+  cd $srcdir/$pkgname
   git log -1 --date=short --pretty=format:%cd | sed "s/-//g"
 }
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd $srcdir/$pkgname
   gradle clean installDist
 }
 
 package() {
-  cd "$srcdir/$pkgname"/dex-tools/build/install/dex-tools/
+  cd $srcdir/$pkgname/dex-tools/build/install/dex-tools/
 
-  install -Dm 755 -t "$pkgdir/usr/lib/$pkgname/" *.sh
-  install -Dm 644 -t "$pkgdir/usr/lib/$pkgname/lib/" lib/*
+  install -Dm755 -t $pkgdir/usr/lib/$pkgname/ *.sh
+  install -Dm644 -t $pkgdir/usr/lib/$pkgname/lib/ lib/*
 
-  install -d "$pkgdir/usr/bin/"
+  install -d $pkgdir/usr/bin/
   for bin in d2j-*.sh; do
     ln -s /usr/lib/dex2jar/$bin "$pkgdir/usr/bin/${bin%.*}"
   done
+  ln -s /usr/lib/dex2jar/d2j-dex2jar $pkgdir/usr/bin/dex2jar
 }
