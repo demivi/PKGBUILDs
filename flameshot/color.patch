@@ -1,0 +1,29 @@
+diff -ura flameshot.orig/src/utils/confighandler.cpp flameshot.new/src/utils/confighandler.cpp
+--- flameshot.orig/src/utils/confighandler.cpp	2018-11-15 18:08:24.730899380 +0100
++++ flameshot.new/src/utils/confighandler.cpp	2018-11-16 09:40:45.322720974 +0100
+@@ -75,15 +75,16 @@
+ QVector<QColor> ConfigHandler::getUserColors() {
+     QVector<QColor> colors;
+     const QVector<QColor> &defaultColors = {
+-        Qt::darkRed,
+-        Qt::red,
+-        Qt::yellow,
+-        Qt::green,
+-        Qt::darkGreen,
+-        Qt::cyan,
+-        Qt::blue,
+-        Qt::magenta,
+-        Qt::darkMagenta
++        QColor("#ffffff"),
++        QColor("#000000"),
++        QColor("#e7e6e6"),
++        QColor("#43a6d1"),
++        QColor("#ed7931"),
++        QColor("#1d7ea8"),
++        QColor("#387866"),
++        QColor("#75bd75"),
++        QColor("#e89929"),
++        QColor("#faad33")
+     };
+ 
+     if (m_settings.contains(QStringLiteral("userColors"))) {
