@@ -9,6 +9,7 @@ depends=('bash' 'docker' 'docker-compose' 'netcat')
 source=("$pkgname"::"https://codeload.github.com/demivi/cpw/tar.gz/$pkgver")
 md5sums=('SKIP')
 backup=('etc/cpw/docker-compose.yml'
+        'etc/cpw/conf.sh'
         'etc/cpw/base/Dockerfile'
         'etc/cpw/int/Dockerfile'
         'etc/cpw/mob/Dockerfile'
