@@ -15,7 +15,5 @@ pkgver() {
 }
 
 package() {
-  cd $pkgname
-  install -dm755 "$pkgdir/usr/bin"
-  install -m755 polenum.py "$pkgdir/usr/bin/polenum"
+  install -Dm755 $pkgname/polenum.py $pkgdir/usr/bin/polenum
 }
