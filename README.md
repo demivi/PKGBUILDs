@@ -9,6 +9,9 @@ The main reasons I created this repository are:
 - I want to be able to patch some tools without forking
 - I want to experiment with package building and repositories
 
+I use most of these packages in Docker containers with my Compose wrapper:
+https://github.com/demivi/cpw
+
 ## Usage
 
 Add the following lines to your `/etc/pacman.conf` then run `pacman -Sy`:
