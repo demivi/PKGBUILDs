@@ -30,5 +30,5 @@ package() {
   for bin in d2j-*.sh; do
     ln -s /usr/lib/dex2jar/$bin "$pkgdir/usr/bin/${bin%.*}"
   done
-  ln -s /usr/lib/dex2jar/d2j-dex2jar $pkgdir/usr/bin/dex2jar
+  ln -s /usr/lib/dex2jar/d2j-dex2jar.sh $pkgdir/usr/bin/dex2jar
 }
