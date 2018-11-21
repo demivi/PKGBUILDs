@@ -1,6 +1,6 @@
 pkgname=flameshot
 pkgver=v0.6.0.24.g2716631
-pkgrel=2
+pkgrel=3
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('i686' 'x86_64')
 url="https://github.com/lupoDharkael/flameshot"
