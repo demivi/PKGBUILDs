@@ -1,0 +1,21 @@
+diff -ura flameshot.orig/src/tools/blur/blurtool.cpp flameshot.new/src/tools/blur/blurtool.cpp
+--- flameshot.orig/src/tools/blur/blurtool.cpp	2018-11-21 13:16:08.950690721 +0100
++++ flameshot.new/src/tools/blur/blurtool.cpp	2018-11-21 13:19:32.442994685 +0100
+@@ -59,6 +59,7 @@
+ 
+     QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
+     blur->setBlurRadius(10);
++    blur->setBlurHints(QGraphicsBlurEffect::QualityHint);
+     QGraphicsPixmapItem *item = new QGraphicsPixmapItem (
+                 pixmap.copy(selectionScaled));
+     item->setGraphicsEffect(blur);
+@@ -67,7 +68,8 @@
+     scene.addItem(item);
+ 
+     scene.render(&painter, selection, QRectF());
+-    blur->setBlurRadius(12);
++    blur->setBlurRadius(14);
++    scene.render(&painter, selection, QRectF());
+     scene.render(&painter, selection, QRectF());
+     scene.render(&painter, selection, QRectF());
+ }
