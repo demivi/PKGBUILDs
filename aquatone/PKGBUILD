@@ -1,0 +1,14 @@
+pkgname=aquatone
+pkgver=1.4.1
+pkgrel=1
+pkgdesc='A tool for visual inspection of websites.'
+arch=('x86_64')
+url='https://github.com/michenriksen/aquatone'
+license=('MIT')
+depends=('chromium')
+source=("aquatone.zip::https://github.com/michenriksen/aquatone/releases/download/v${pkgver}/aquatone_linux_amd64_${pkgver}.zip")
+md5sums=('SKIP')
+
+package() {
+  install -Dm755 ${srcdir}/aquatone ${pkgdir}/usr/bin/aquatone
+}
