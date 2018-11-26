@@ -1,9 +1,9 @@
 pkgname=impacket
-pkgver=0_9_17.60.gf9890ec9
+pkgver=0_9_17.89.g76cf9569
 pkgrel=1
 pkgdesc='A collection of Python classes for working with network protocols'
 arch=('any')
-url='https://github.com/CoreSecurity/impacket'
+url='https://github.com/SecureAuthCorp/impacket'
 license=('custom')
 depends=('python2-crypto' 'python2-flask' 'python2-ldap3' 'python2-ldapdomaindump' 'python2-pcapy' 'python2-pyasn1' 'python2-pycryptodomex' 'python2-pyopenssl')
 makedepends=('python2-setuptools')
