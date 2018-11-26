@@ -1,5 +1,5 @@
 pkgname=cfr
-pkgver=0.135
+pkgver=0.136
 pkgrel=1
 pkgdesc='Another Java decompiler'
 arch=('x86_64')
