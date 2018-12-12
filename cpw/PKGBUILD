@@ -1,15 +1,17 @@
 pkgname=cpw
-pkgver=0.3.1
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='A Docker Compose wrapper'
 arch=('x86_64')
 url='https://github.com/demivi/cpw'
 license=('MIT')
-depends=('bash' 'docker' 'docker-compose' 'netcat')
+depends=('bash' 'docker' 'docker-compose' 'wget')
 source=("$pkgname"::"https://codeload.github.com/demivi/cpw/tar.gz/$pkgver")
 md5sums=('SKIP')
 backup=('etc/cpw/docker-compose.yml'
         'etc/cpw/conf.sh'
+        'etc/cpw/pre.sh'
+        'etc/cpw/post.sh'
         'etc/cpw/base/Dockerfile'
         'etc/cpw/int/Dockerfile'
         'etc/cpw/mob/Dockerfile'
