@@ -1,0 +1,30 @@
+pkgname=responder
+pkgver=v2.3.0.60.g0bdc183
+pkgrel=1
+pkgdesc='LLMNR/NBT-NS/mDNS Poisoner'
+arch=('any')
+url='https://github.com/SpiderLabs/Responder'
+license=('GPL')
+depends=('python2')
+source=("$pkgname"::"git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed "s/-/./g"
+}
+
+package() {
+  cd $srcdir/$pkgname
+
+  install -dm755 $pkgdir/usr/lib/responder
+  cp -r * $pkgdir/usr/lib/responder
+
+  install -dm755 $pkgdir/usr/bin/
+  cat > $pkgdir/usr/bin/responder << EOF
+#!/bin/sh
+cd /usr/lib/responder
+python2 Responder.py "\$@"
+EOF
+  chmod a+x $pkgdir/usr/bin/responder
+}
