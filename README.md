@@ -36,4 +36,3 @@ archstrike/crackmapexec
 
 Here are the reasons you might not want to use the packages starting with `nr` (for Not Recommended):
 - cmsmap: the package itselft is lightweith but it requires the `exploitdb` database and clones the 4 supported CMS repositories which makes for an approximative installation size of 1.8 GB...
-- eyewitness: this program is bloated, more than 200 dependencies for more than a GB install size
