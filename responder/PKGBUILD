@@ -1,9 +1,9 @@
 pkgname=responder
-pkgver=v2.3.0.60.g0bdc183
+pkgver=v2.3.3.9.31.g7339411
 pkgrel=1
 pkgdesc='LLMNR/NBT-NS/mDNS Poisoner'
 arch=('any')
-url='https://github.com/SpiderLabs/Responder'
+url='https://github.com/lgandx/Responder'
 license=('GPL')
 depends=('python2')
 source=("$pkgname"::"git+${url}.git")
