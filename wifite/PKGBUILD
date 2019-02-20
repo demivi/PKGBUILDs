@@ -1,12 +1,12 @@
 pkgname=wifite
 pkgver=2.2.5.5.ge190794
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool to attack multiple WEP and WPA encrypted networks at the same time'
 arch=('any')
 url='https://github.com/derv82/wifite2'
 license=('GPL')
-depends=('aircrack-ng' 'bully' 'cowpatty' 'hcxdumptool' 'hcxtools' 'pciutils' 'python' 'reaver' 'usbutils' 'wireshark-cli')
-optdepends=('hashcat' 'pyrit')
+depends=('aircrack-ng' 'bully' 'hcxdumptool' 'hcxtools' 'pciutils' 'pyrit' 'python' 'reaver' 'usbutils' 'wireshark-cli')
+optdepends=('cowpatty' 'hashcat')
 makedepends=('git')
 source=("$pkgname::git+https://github.com/derv82/wifite2.git")
 sha256sums=('SKIP')
@@ -18,14 +18,14 @@ pkgver() {
 
 package() {
   install -dm755 ${pkgdir}/usr/bin
-  install -dm755 ${pkgdir}/usr/share/wifite2
-  install -Dm755 ${pkgname}/Wifite.py ${pkgdir}/usr/share/wifite2/Wifite.py
-  cp -r $pkgname/wifite ${pkgdir}/usr/share/wifite2/wifite
+  install -dm755 ${pkgdir}/usr/share/wifite
+  install -Dm755 ${pkgname}/Wifite.py ${pkgdir}/usr/share/wifite/Wifite.py
+  cp -r $pkgname/wifite ${pkgdir}/usr/share/wifite/wifite
 
-  cat > $pkgdir/usr/bin/wifite2 << EOF
+  cat > $pkgdir/usr/bin/wifite << EOF
 #!/bin/sh
-exec python /usr/share/wifite2/Wifite.py "\${@}"
+exec python /usr/share/wifite/Wifite.py "\${@}"
 EOF
 
-  chmod a+x $pkgdir/usr/bin/wifite2
+  chmod a+x $pkgdir/usr/bin/wifite
 }
