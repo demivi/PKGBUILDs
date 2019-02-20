@@ -1,0 +1,87 @@
+pkgname=hostapd-wpe
+_pkgname=hostapd
+pkgver=2.7
+pkgrel=1
+pkgdesc="IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
+arch=('x86_64')
+url="https://w1.fi/hostapd/"
+license=(GPL)
+depends=('openssl' 'libnl')
+makedepends=('git' 'make' 'patch' 'pkgconf')
+options=(emptydirs)
+source=(https://w1.fi/releases/$_pkgname-$pkgver.tar.gz
+        config::https://git.archlinux.org/svntogit/community.git/plain/trunk/config?h=packages/hostapd
+        hostapd.service::https://git.archlinux.org/svntogit/community.git/plain/trunk/hostapd.service?h=packages/hostapd
+        hostapd-2.3-noscan.patch::https://git.archlinux.org/svntogit/community.git/plain/trunk/hostapd-2.3-noscan.patch?h=packages/hostapd
+        openvswitch.patch::https://git.archlinux.org/svntogit/community.git/plain/trunk/openvswitch.patch?h=packages/hostapd
+        hostapd-wpe.patch) # 2.7 patch taken from aircrack repository https://github.com/aircrack-ng/aircrack-ng/
+sha256sums=('21b0dda3cc3abe75849437f6b9746da461f88f0ea49dd621216936f87440a141'
+            'a39e011bf0c3f2d21db8816a7e608a99b9d598c7b559d58d026f10e4359d428d'
+            '989bc6855f44c0b360e3d4cd4a146c35b7c12f8a0ced627b4b033f58edcade8e'
+            '46a1967d7ec2fb190adde23c1bbd59f54c29902ae257276daef909dc842287f2'
+            'eeb07b5a3b971b3108ce8c5c947f4600d98ec9b338b8b88a96a7774cef269e49'
+            '3581d599bfb1cda10365ff06342865c97e22b71a52d2909d9aa270c507d0f429')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  local i; for i in "${source[@]}"; do
+    case $i in
+      *.patch)
+        msg2 "Applying patch $i"
+        patch -p1 -i "$srcdir/$i"
+        ;;
+    esac
+  done
+}
+
+build() {
+  cd $_pkgname-$pkgver/hostapd
+  cp ../../config .config
+  sed -i 's#/etc/hostapd#/etc/hostapd/hostapd#' hostapd.conf
+  export CFLAGS="$CFLAGS $(pkg-config --cflags libnl-3.0)"
+  make
+}
+
+package() {
+  cd $_pkgname-$pkgver
+
+  # License
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$_pkgname/COPYING"
+
+  cd hostapd
+
+  # Binaries
+  install -d "$pkgdir/usr/bin"
+  install -t "$pkgdir/usr/bin" hostapd-wpe hostapd-wpe_cli
+
+  sed -i '/^eap_fast_*/d' hostapd-wpe.conf
+  sed -i '/^pac_*/d' hostapd-wpe.conf
+  sed -i 's/,FAST//' hostapd-wpe.eap_user
+
+  # Configuration
+  install -d "$pkgdir/usr/share/doc/hostapd"
+  install -m644 -t "$pkgdir/usr/share/doc/hostapd" \
+    hostapd.{accept,deny,radius_clients,sim_db,vlan,wpa_psk} \
+    hostapd-wpe.{conf,eap_user} wired.conf hlr_auc_gw.milenage_db
+
+  # Man pages
+  install -Dm644 hostapd.8 "$pkgdir/usr/share/man/man8/hostapd.8"
+  install -Dm644 hostapd_cli.1 "$pkgdir/usr/share/man/man1/hostapd_cli.1"
+
+  install -d $pkgdir/etc/hostapd-wpe
+  install -m 644 hostapd-wpe.conf hostapd-wpe.eap_user $pkgdir/etc/hostapd-wpe
+  install -d $pkgdir/etc/hostapd-wpe/certs
+  install -d $pkgdir/etc/hostapd-wpe/certs/demoCA
+  install -m 644 certs/demoCA/cacert.pem $pkgdir/etc/hostapd-wpe/certs/demoCA
+  install -m 755 certs/bootstrap $pkgdir/etc/hostapd-wpe/certs
+  install -m 644 certs/ca.cnf certs/client.cnf certs/Makefile certs/README certs/README.wpe certs/server.cnf certs/xpextensions $pkgdir/etc/hostapd-wpe/certs
+
+  cd $pkgdir/etc/hostapd-wpe/certs
+  ./bootstrap
+
+  install -d $pkgdir/etc/hostapd-wpe
+  install -m 644 dh $pkgdir/etc/hostapd-wpe
+  install -m 644 ca.pem $pkgdir/etc/hostapd-wpe
+  install -m 644 server.pem $pkgdir/etc/hostapd-wpe
+  install -m 644 server.key $pkgdir/etc/hostapd-wpe
+}
