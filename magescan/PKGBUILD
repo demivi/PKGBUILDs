@@ -1,5 +1,5 @@
 pkgname=magescan
-pkgver=v1.12.8.1.g080de7b
+pkgver=v1.12.9
 pkgrel=1
 pkgdesc='Scan a Magento site for information.'
 arch=('any')
