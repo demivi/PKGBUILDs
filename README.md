@@ -3,6 +3,7 @@
 An Arch Linux repository tailored for my needs. 
 
 The main reasons I created this repository are:
+
 - I want to easily deploy and update all my tools in Docker containers with pacman
 - I don't want to bother with AUR helpers
 - I want some of my packages to be based on dev versions
@@ -10,6 +11,7 @@ The main reasons I created this repository are:
 - I want to experiment with package building and repositories
 
 I use most of these packages in Docker containers with my Compose wrapper:
+
 https://github.com/demivi/cpw
 
 ## Usage
@@ -32,7 +34,23 @@ community/metasploit
 archstrike/crackmapexec
 ```
 
+## dev packages
+
+The following packages are meant to be based on dev versions:
+
+- crackmapexec
+- dex2jar
+- drozer
+- enum4linux
+- impacket
+- cmsmap
+- responder
+- smbmap
+- wafw00f
+- wifite
+
 ## nr packages
 
 Here are the reasons you might not want to use the packages starting with `nr` (for Not Recommended):
+
 - cmsmap: the package itselft is lightweith but it requires the `exploitdb` database and clones the 4 supported CMS repositories which makes for an approximative installation size of 1.8 GB...
