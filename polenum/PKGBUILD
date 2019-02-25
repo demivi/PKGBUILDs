@@ -6,14 +6,9 @@ arch=('any')
 url='https://github.com/Wh1t3Fox/polenum'
 license=('GPL3')
 depends=('impacket' 'python2')
-source=("$pkgname"::"git+${url}.git")
+source=("https://github.com/Wh1t3Fox/polenum/archive/$pkgver.zip")
 md5sums=('SKIP')
 
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed "s/-/./g"
-}
-
 package() {
-  install -Dm755 $pkgname/polenum.py $pkgdir/usr/bin/polenum
+  install -Dm755 $pkgname-$pkgver/polenum.py $pkgdir/usr/bin/polenum
 }
