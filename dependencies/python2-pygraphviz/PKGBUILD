@@ -1,0 +1,31 @@
+# Taken from https://github.com/ArchStrike/ArchStrike, under GPL3
+_pkgname=pygraphviz
+pkgname=python2-pygraphviz
+pkgver=1.5
+pkgrel=1
+pkgdesc='An interface to the Graphviz graph layout and visualization package'
+arch=('any')
+license=('LGPL')
+url="https://pygraphviz.github.io/"
+depends=('python2' 'graphviz')
+makedepends=('pkgconf' 'python2-setuptools')
+source=("https://files.pythonhosted.org/packages/7e/b1/d6d849ddaf6f11036f9980d433f383d4c13d1ebcfc3cd09bc845bda7e433/${_pkgname}-${pkgver}.zip")
+sha256sums=('50a829a305dc5a0fd1f9590748b19fece756093b581ac91e00c2c27c651d319d')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python2 setup.py build
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+  python2 setup.py install --prefix=/usr --root="${pkgdir}" -O1 --skip-build
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt
+
+  # Patch to use python2
+  find "${pkgdir}" -type f \( -name '*.py' -or -executable \) -exec \
+    sed -i -e 's|#![ ]*/usr/bin/python$|#!/usr/bin/python2|' \
+           -e 's|#![ ]*/usr/bin/env python$|#!/usr/bin/env python2|' \
+    {} \;
+}
