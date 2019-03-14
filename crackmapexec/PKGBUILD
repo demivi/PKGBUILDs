@@ -1,5 +1,5 @@
 pkgname='crackmapexec'
-pkgver=v3.1.5.127.gdbe142c
+pkgver=v3.1.5.132.g333f1c4
 pkgrel=1
 pkgdesc='A swiss army knife for pentesting Windows/Active Directory environments.'
 url='https://github.com/byt3bl33d3r/CrackMapExec'
