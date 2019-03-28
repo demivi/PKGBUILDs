@@ -1,5 +1,5 @@
 pkgname=cpw
-pkgver=0.4.5
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='A Docker Compose wrapper'
 arch=('x86_64')
@@ -9,11 +9,10 @@ depends=('bash' 'docker' 'docker-compose' 'wget')
 source=("$pkgname"::"https://codeload.github.com/demivi/cpw/tar.gz/$pkgver")
 md5sums=('SKIP')
 backup=('etc/cpw/docker-compose.yml'
-        'etc/cpw/conf.sh'
-        'etc/cpw/pre.sh'
-        'etc/cpw/post.sh'
-        'etc/cpw/update.sh'
+        'etc/cpw/script'
         'etc/cpw/base/Dockerfile'
+        'etc/cpw/burp/Dockerfile'
+        'etc/cpw/ext/Dockerfile'
         'etc/cpw/int/Dockerfile'
         'etc/cpw/mob/Dockerfile'
         'etc/cpw/web/Dockerfile'
@@ -22,8 +21,8 @@ backup=('etc/cpw/docker-compose.yml'
 package() {
   cd $srcdir/$pkgname-$pkgver
 
-  install -Dm755 cpw.sh $pkgdir/usr/lib/cpw/cpw.sh
-  rm cpw.sh README.md LICENSE
+  install -Dm755 cpw $pkgdir/usr/lib/cpw/cpw
+  rm cpw
 
   install -dm755 $pkgdir/etc/cpw/
   cp -r * $pkgdir/etc/cpw/
@@ -32,7 +31,7 @@ package() {
   cat > $pkgdir/usr/bin/cpw << EOF
 #!/bin/sh
 cd /etc/cpw/
-exec /usr/lib/cpw/cpw.sh "\$@"
+exec /usr/lib/cpw/cpw "\$@"
 EOF
 
   chmod a+x $pkgdir/usr/bin/cpw
