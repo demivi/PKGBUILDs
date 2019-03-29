@@ -1,6 +1,6 @@
 pkgname=cpw
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.5.1
+pkgrel=1
 pkgdesc='A Docker Compose wrapper'
 arch=('x86_64')
 url='https://github.com/demivi/cpw'
