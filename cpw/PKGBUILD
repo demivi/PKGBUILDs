@@ -1,5 +1,5 @@
 pkgname=cpw
-pkgver=0.5.7
+pkgver=0.5.8
 pkgrel=1
 pkgdesc='A Docker Compose wrapper'
 arch=('x86_64')
