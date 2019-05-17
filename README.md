@@ -29,7 +29,6 @@ If you want packages in mcar to take precedence over other repositories, put tho
 If you don't already use it, I suggest looking into pkgfile which will help you identify packages by the commands they provide:
 ```
 # pkgfile secretsdump.py
-mcar/crackmapexec
 mcar/impacket
 community/impacket
 community/metasploit
@@ -42,7 +41,6 @@ This complements pacman -Ss very well.
 
 The following packages are meant to be based on dev versions:
 
-- crackmapexec
 - dex2jar
 - drozer
 - enum4linux
