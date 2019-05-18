@@ -1,12 +1,12 @@
-pkgname=impacket
+pkgbase=impacket
+pkgname=('impacket' 'python2-impacket')
 pkgver=0_9_19.243.g7dd9096e
-pkgrel=1
+pkgrel=3
 pkgdesc='A collection of Python classes for working with network protocols'
 arch=('any')
 url='https://github.com/SecureAuthCorp/impacket'
 license=('custom')
-depends=('python2-crypto' 'python2-flask' 'python2-ldap3' 'python2-ldapdomaindump' 'python2-pcapy' 'python2-pyasn1' 'python2-pycryptodomex' 'python2-pyopenssl')
-makedepends=('python2-setuptools')
+makedepends=("python-setuptools" "python2-setuptools")
 source=("$pkgname"::"git+${url}.git")
 md5sums=('SKIP')
 
@@ -15,7 +15,26 @@ pkgver() {
   git describe --tags | sed "s/impacket_//" | sed "s/-/./g"
 }
 
-package() {
-  cd $pkgname
-  python2 setup.py install --root="$pkgdir/" --optimize=1
+prepare() {
+    cp -a impacket{,-py2}
+}
+
+build() {
+    cd "$srcdir/impacket"
+    python setup.py build
+
+    cd "$srcdir/impacket-py2"
+    python2 setup.py build
+}
+
+package_impacket() {
+    depends=('krb5' 'python-crypto' 'python-flask' 'python-future' 'python-ldap3' 'python-ldapdomaindump' 'python-pcapy' 'python-pyasn1' 'python-pycryptodomex' 'python-pyopenssl')
+    cd "$srcdir/impacket"
+    python setup.py install --root="$pkgdir/" --optimize=1
+}
+
+package_python2-impacket() {
+    depends=('krb5' 'python2-crypto' 'python2-flask' 'python2-future' 'python2-ldap3' 'python2-ldapdomaindump' 'python2-pcapy' 'python2-pyasn1' 'python2-pycryptodomex' 'python2-pyopenssl')
+    cd "$srcdir/impacket-py2"
+    python2 setup.py install --root="$pkgdir/" --optimize=1
 }
