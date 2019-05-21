@@ -1,5 +1,5 @@
 pkgname=wafw00f
-pkgver=v0.9.6
+pkgver=v1.0.0.11.g43c0565
 pkgrel=1
 pkgdesc='Web Application Firewall Detection Tool'
 arch=('i686' 'x86_64')

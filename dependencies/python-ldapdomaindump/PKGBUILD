@@ -1,0 +1,40 @@
+pkgbase=python-ldapdomaindump
+pkgname=('python-ldapdomaindump' 'python2-ldapdomaindump')
+pkgver=v0.9.1.6.gedb2a6a
+pkgrel=2
+pkgdesc='Active Directory information dumper via LDAP.'
+arch=('any')
+url='https://github.com/dirkjanm/ldapdomaindump'
+license=('MIT')
+makedepends=('git' 'python-setuptools' 'python2-setuptools')
+source=("git+https://github.com/dirkjanm/ldapdomaindump.git")
+sha1sums=('SKIP')
+
+pkgver() {
+  cd "ldapdomaindump"
+  git describe --tags | sed "s/-/./g"
+}
+
+prepare() {
+    cp -a ldapdomaindump{,-py2}
+}
+
+build() {
+    cd "$srcdir/ldapdomaindump"
+    python setup.py build
+
+    cd "$srcdir/ldapdomaindump-py2"
+    python2 setup.py build
+}
+
+package_python-ldapdomaindump() {
+  depends=('python' 'python-dnspython' 'python-ldap3')
+  cd "$srcdir/ldapdomaindump"
+  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
+}
+
+package_python2-ldapdomaindump() {
+  depends=('python2' 'python2-dnspython' 'python2-ldap3')
+  cd "$srcdir/ldapdomaindump-py2"
+  python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
+}
