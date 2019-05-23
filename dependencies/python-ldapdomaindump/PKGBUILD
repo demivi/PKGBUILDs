@@ -1,7 +1,7 @@
 pkgbase=python-ldapdomaindump
 pkgname=('python-ldapdomaindump' 'python2-ldapdomaindump')
 pkgver=v0.9.1.6.gedb2a6a
-pkgrel=2
+pkgrel=3
 pkgdesc='Active Directory information dumper via LDAP.'
 arch=('any')
 url='https://github.com/dirkjanm/ldapdomaindump'
@@ -37,4 +37,7 @@ package_python2-ldapdomaindump() {
   depends=('python2' 'python2-dnspython' 'python2-ldap3')
   cd "$srcdir/ldapdomaindump-py2"
   python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
+
+  # We don't keep the files in /usr/bin for the python 2 version
+  rm -r "$pkgdir/usr/bin"
 }
