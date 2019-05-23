@@ -34,6 +34,7 @@ package() {
 
   cp -a --no-preserve=ownership * "$pkgdir/usr/share/$pkgname/"
 
+
   cat > "$pkgdir/usr/bin/$pkgname" << EOF
 #!/bin/sh
 cd /usr/share/$pkgname
@@ -41,5 +42,5 @@ exec python3 $pkgname "\$@"
 EOF
 
   chmod +x "$pkgdir/usr/bin/$pkgname"
-  openssl dhparam -out filename 2048 > /$pkgdir/usr/share/eaphammer/certs/dh
+  openssl dhparam -out "$pkgdir/usr/share/$pkgname/certs/dh" 2048
 }
