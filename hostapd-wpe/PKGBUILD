@@ -1,6 +1,6 @@
 pkgname=hostapd-wpe
 _pkgname=hostapd
-pkgver=2.7
+pkgver=2.8
 pkgrel=1
 pkgdesc="IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
 arch=('x86_64')
@@ -12,23 +12,24 @@ options=(emptydirs)
 source=(https://w1.fi/releases/$_pkgname-$pkgver.tar.gz
         config::https://git.archlinux.org/svntogit/community.git/plain/trunk/config?h=packages/hostapd
         hostapd.service::https://git.archlinux.org/svntogit/community.git/plain/trunk/hostapd.service?h=packages/hostapd
-        hostapd-2.3-noscan.patch::https://git.archlinux.org/svntogit/community.git/plain/trunk/hostapd-2.3-noscan.patch?h=packages/hostapd
+        hostapd-noscan.patch::https://git.archlinux.org/svntogit/community.git/plain/trunk/hostapd-noscan.patch?h=packages/hostapd
         openvswitch.patch::https://git.archlinux.org/svntogit/community.git/plain/trunk/openvswitch.patch?h=packages/hostapd
-        hostapd-wpe.patch) # 2.7 patch taken from aircrack repository https://github.com/aircrack-ng/aircrack-ng/
-sha256sums=('21b0dda3cc3abe75849437f6b9746da461f88f0ea49dd621216936f87440a141'
+        hostapd-wpe.patch::https://raw.githubusercontent.com/aircrack-ng/aircrack-ng/dfacc5d5e7ae315a5ab42dedb32d5921ada9df3b/patches/wpe/hostapd-wpe/hostapd-wpe.patch)
+sha256sums=('929f522be6eeec38c53147e7bc084df028f65f148a3f7e4fa6c4c3f955cee4b0'
             'a39e011bf0c3f2d21db8816a7e608a99b9d598c7b559d58d026f10e4359d428d'
             '989bc6855f44c0b360e3d4cd4a146c35b7c12f8a0ced627b4b033f58edcade8e'
-            '46a1967d7ec2fb190adde23c1bbd59f54c29902ae257276daef909dc842287f2'
-            'eeb07b5a3b971b3108ce8c5c947f4600d98ec9b338b8b88a96a7774cef269e49'
-            '3581d599bfb1cda10365ff06342865c97e22b71a52d2909d9aa270c507d0f429')
+            '5ad1aadcd7682e517cab6afb474df6b9abad1a08dbe2bb40571a1b91c33f6f09'
+            '64c06b5f6f58923446fd9351c596c759dec130997677f8b9f013c8ce360fbd98'
+            '4c16c6dcfb243c047a0e41da330b63c232f72f8c0f44179eef105142628ccd06')
 
 prepare() {
   cd $_pkgname-$pkgver
   local i; for i in "${source[@]}"; do
-    case $i in
+    j=$(echo $i | cut -f1 -d":")
+    case $j in
       *.patch)
-        msg2 "Applying patch $i"
-        patch -p1 -i "$srcdir/$i"
+        msg2 "Applying patch $j"
+        patch -p1 -i "$srcdir/$j"
         ;;
     esac
   done
@@ -54,6 +55,7 @@ package() {
   install -d "$pkgdir/usr/bin"
   install -t "$pkgdir/usr/bin" hostapd-wpe hostapd-wpe_cli
 
+  # EAP Fast not supported
   sed -i '/^eap_fast_*/d' hostapd-wpe.conf
   sed -i '/^pac_*/d' hostapd-wpe.conf
   sed -i 's/,FAST//' hostapd-wpe.eap_user

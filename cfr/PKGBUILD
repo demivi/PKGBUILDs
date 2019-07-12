@@ -1,5 +1,5 @@
 pkgname=cfr
-pkgver=0.143
+pkgver=0.145
 pkgrel=1
 pkgdesc='Another Java decompiler'
 arch=('x86_64')
@@ -8,7 +8,7 @@ license=('MIT')
 depends=('java-runtime')
 source=("http://www.benf.org/other/cfr/cfr-$pkgver.jar")
 noextract=("cfr-$pkgver.jar")
-md5sums=('8a411f1a525b26c064712e087f105969')
+md5sums=('4fff5f31ca3e541090cb0a26c4e3a512')
 
 package() {
   install -Dm644 cfr-$pkgver.jar $pkgdir/usr/lib/cfr/cfr.jar

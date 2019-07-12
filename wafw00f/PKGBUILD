@@ -1,11 +1,11 @@
 pkgname=wafw00f
-pkgver=v1.0.0.11.g43c0565
+pkgver=v1.0.0.47.ga95a942
 pkgrel=1
 pkgdesc='Web Application Firewall Detection Tool'
 arch=('i686' 'x86_64')
 url='https://github.com/EnableSecurity/wafw00f'
 license=('GPL')
-depends=('python' 'python-beautifulsoup4' 'python-pluginbase')
+depends=('python' 'python-html5lib' 'python-pluginbase')
 makedepends=('git' 'python-setuptools')
 source=("$pkgname"::"git+${url}.git")
 md5sums=('SKIP')
