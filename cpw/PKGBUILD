@@ -1,5 +1,5 @@
 pkgname=cpw
-pkgver=0.5.17
+pkgver=0.5.18
 pkgrel=1
 pkgdesc='A Docker Compose wrapper'
 arch=('x86_64')
@@ -19,6 +19,9 @@ backup=('usr/lib/cpw/docker-compose.yml'
 
 package() {
   cd $srcdir/$pkgname-$pkgver
+
+  install -dm755 $pkgdir/usr/share/bash-completion/completions/
+  mv completion $pkgdir/usr/share/bash-completion/completions/cpw
 
   install -dm755 $pkgdir/usr/lib/cpw/
   cp -r * $pkgdir/usr/lib/cpw/
