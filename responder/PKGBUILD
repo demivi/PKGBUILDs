@@ -1,11 +1,11 @@
 pkgname=responder
-pkgver=v2.3.4.0
-pkgrel=1
+pkgver=v2.3.4.0.1.g9cfa3cd
+pkgrel=2
 pkgdesc='LLMNR/NBT-NS/mDNS Poisoner'
 arch=('any')
 url='https://github.com/lgandx/Responder'
 license=('GPL')
-depends=('python2')
+depends=('python2' 'python2-cryptography')
 source=("$pkgname"::"git+${url}.git")
 md5sums=('SKIP')
 
@@ -21,10 +21,26 @@ package() {
   cp -r * $pkgdir/usr/lib/responder
 
   install -dm755 $pkgdir/usr/bin/
+
   cat > $pkgdir/usr/bin/responder << EOF
 #!/bin/sh
 cd /usr/lib/responder
 python2 Responder.py "\$@"
 EOF
+
+  cat > $pkgdir/usr/bin/multirelay << EOF
+#!/bin/sh
+cd /usr/lib/responder/tools
+python2 MultiRelay.py "\$@"
+EOF
+
+  cat > $pkgdir/usr/bin/runfinger << EOF
+#!/bin/sh
+cd /usr/lib/responder/tools
+python2 RunFinger.py "\$@"
+EOF
+
   chmod a+x $pkgdir/usr/bin/responder
+  chmod a+x $pkgdir/usr/bin/multirelay
+  chmod a+x $pkgdir/usr/bin/runfinger
 }
