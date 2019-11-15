@@ -1,6 +1,6 @@
 pkgname=smbmap
-pkgver=1.0.5.15.gb55fc05
-pkgrel=2
+pkgver=1.1.0.16.gb667382
+pkgrel=1
 pkgdesc='A pentest tool to map SMB shares'
 arch=('any')
 url='https://github.com/ShawnDEvans/smbmap'
