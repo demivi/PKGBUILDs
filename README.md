@@ -46,8 +46,10 @@ The following packages are meant to be based on dev versions:
 - enum4linux
 - impacket
 - cmsmap
+- rdp-screenshotter
 - responder
 - smbmap
+- testssl.sh
 - wafw00f
 - wifite
 
