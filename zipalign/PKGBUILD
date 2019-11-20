@@ -1,15 +1,15 @@
 pkgname=zipalign
-pkgver=28.0.3
+pkgver=29.0.2
 pkgrel=1
 pkgdesc='An archive alignment tool for APK files'
 arch=('x86_64')
 url='https://developer.android.com/studio/releases/build-tools'
 license=('custom')
 depends=('gcc-libs' 'zlib')
-source=("https://dl-ssl.google.com/android/repository/build-tools_r${pkgver}-linux.zip")
+source=("https://dl.google.com/android/repository/build-tools_r$pkgver-linux.zip")
 md5sums=('SKIP')
 
 package() {
-  install -Dm644 -t "${pkgdir}/usr/lib/" "${srcdir}/android-9/lib64/libc++.so"
-  install -Dm755 -t "${pkgdir}/usr/bin/" "${srcdir}/android-9/zipalign"
+  install -Dm644 -t "${pkgdir}/usr/lib/" "${srcdir}/android-10/lib64/libc++.so"
+  install -Dm755 -t "${pkgdir}/usr/bin/" "${srcdir}/android-10/zipalign"
 }
