@@ -1,7 +1,7 @@
 pkgname=rdp-screenshotter
 pkgver=20160828
-pkgrel=1
-pkgdesc='A Docker Compose wrapper'
+pkgrel=2
+pkgdesc='Take screenshots of RDP login screens'
 arch=('any')
 url='https://github.com/zer0-t/RDP-screenshotter'
 license=('GPL')
