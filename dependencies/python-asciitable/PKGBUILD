@@ -1,0 +1,22 @@
+pkgname=python-asciitable
+_pkgname=asciitable
+pkgver=0.8.0
+pkgrel=1
+pkgdesc='Read and write a wide range of ASCII table formats'
+arch=(any)
+url='https://pypi.org/project/asciitable'
+license=('BSD')
+depends=('python')
+makedepends=('python-setuptools')
+source=('https://files.pythonhosted.org/packages/c5/62/f5c8be086a5ebb9d2a8f9a9bf6e874830b7ec153bb348975c4ae5a6b6edd/asciitable-0.8.0.tar.gz')
+md5sums=('SKIP')
+
+build() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  python setup.py install --skip-build -O1 --root="$pkgdir"
+}
