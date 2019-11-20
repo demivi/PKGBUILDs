@@ -1,0 +1,31 @@
+pkgname=testssl.sh
+pkgver=3.0rc5.225.g1e268ec
+pkgrel=1
+pkgdesc='Testing TLS/SSL encryption'
+arch=('any')
+url='https://github.com/drwetter/testssl.sh'
+license=('GPL2')
+depends=('bash' 'coreutils' 'util-linux' 'openssl' 'inetutils' 'bind-tools' 'procps-ng')
+source=("$pkgname"::"git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+    cd $pkgname
+    git describe --tags | sed "s/-/./g"
+}
+
+package() {
+    cd $srcdir/$pkgname
+
+    install -dm755 $pkgdir/usr/lib/testssl/
+    cp -r * $pkgdir/usr/lib/testssl/
+    
+    install -dm755 $pkgdir/usr/bin/
+    cat > $pkgdir/usr/bin/testssl << EOF
+#!/bin/sh
+cd /usr/lib/testssl/
+exec /usr/lib/testssl/testssl.sh "\$@"
+EOF
+
+    chmod a+x $pkgdir/usr/bin/testssl
+}
