@@ -1,0 +1,20 @@
+pkgname=rdp-screenshotter
+pkgver=20160828
+pkgrel=1
+pkgdesc='A Docker Compose wrapper'
+arch=('any')
+url='https://github.com/zer0-t/RDP-screenshotter'
+license=('GPL')
+depends=('bash' 'xdotool' 'imagemagick' 'rdesktop' 'bc' 'tesseract-data-eng' )
+source=("$pkgname"::"git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+    cd $pkgname
+    git log -1 --date=short --pretty=format:%cd | sed "s/-//g"
+}
+
+package() {
+    cd $srcdir/$pkgname
+    install -Dm755 RDP-screenshotter.sh $pkgdir/usr/bin/rdp-screenshotter
+}
