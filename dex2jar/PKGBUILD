@@ -1,5 +1,5 @@
 pkgname=dex2jar
-pkgver=20180905
+pkgver=20190905
 pkgrel=1
 pkgdesc='Tools to work with android .dex and java .class files'
 arch=('x86_64')
