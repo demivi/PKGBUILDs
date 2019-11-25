@@ -1,6 +1,6 @@
 pkgname=python-pluginbase
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A support library for building plugin sytems in Python'
 arch=('x86_64')
 url='https://github.com/mitsuhiko/pluginbase'
