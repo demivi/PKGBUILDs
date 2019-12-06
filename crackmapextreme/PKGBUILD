@@ -1,5 +1,5 @@
 pkgname=crackmapextreme
-pkgver=20191122
+pkgver=20191205
 pkgrel=1
 pkgdesc='Crack Map Exec - eXtreme edition'
 arch=('any')
