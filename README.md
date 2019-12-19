@@ -43,6 +43,7 @@ The following packages are meant to be based on dev versions:
 
 - dex2jar
 - drozer
+- enjarify
 - enum4linux
 - impacket
 - cmsmap
@@ -52,6 +53,8 @@ The following packages are meant to be based on dev versions:
 - testssl.sh
 - wafw00f
 - wifite
+
+Note that enjarify and responder packages are based on maintained forks (from the original author regarding responder).
 
 ## nr packages
 

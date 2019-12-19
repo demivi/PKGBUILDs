@@ -1,0 +1,25 @@
+pkgname=enjarify
+pkgver=1.0.3.15.gb5dccde
+pkgrel=1
+pkgdesc='A tool for translating Dalvik bytecode to equivalent Java bytecode'
+arch=('any')
+url='https://github.com/Storyyeller/enjarify'
+license=('Apache')
+depends=('pypy3')
+source=("$pkgname"::"git+${url}.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed "s/-/./g"
+}
+
+package() {
+  cd "$srcdir/$pkgname"
+
+  install -dm755 $pkgdir/usr/lib/enjarify/
+  cp -r * $pkgdir/usr/lib/enjarify/
+
+  install -dm755 $pkgdir/usr/bin/
+  ln -s /usr/lib/enjarify/enjarify.sh $pkgdir/usr/bin/enjarify
+}
