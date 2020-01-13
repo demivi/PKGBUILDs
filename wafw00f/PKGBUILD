@@ -1,6 +1,6 @@
 pkgname=wafw00f
-pkgver=v1.0.0.47.ga95a942
-pkgrel=2
+pkgver=v2.0.0.5.g9682cdb
+pkgrel=1
 pkgdesc='Web Application Firewall Detection Tool'
 arch=('i686' 'x86_64')
 url='https://github.com/EnableSecurity/wafw00f'
