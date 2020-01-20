@@ -41,12 +41,13 @@ This complements pacman -Ss very well.
 
 The following packages are meant to be based on dev versions:
 
+- cmsmap
 - dex2jar
 - drozer
 - enjarify
 - enum4linux
 - impacket
-- cmsmap
+- nikto
 - rdp-screenshotter
 - responder
 - smbmap
