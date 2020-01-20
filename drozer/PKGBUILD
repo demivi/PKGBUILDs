@@ -1,5 +1,5 @@
 pkgname=drozer
-pkgver=2.4.3.19.g26f0ddf
+pkgver=2.4.3.25.g28fb023
 pkgrel=1
 pkgdesc='Comprehensive security and attack framework for Android'
 arch=('x86_64')
@@ -16,8 +16,16 @@ pkgver() {
   git describe --tags | sed "s/-/./g"
 }
 
+prepare() {
+  cd $pkgname
+  sed -i 's/check_output(version_cmd/check_output(version_cmd,shell=True/' setup.py
+}
+
 package() {
   cd $pkgname
   export PATH=$PATH:/usr/lib/jvm/java-7-openjdk/bin/
   python2 setup.py install --root="$pkgdir" --optimize=1
+
+  # Ugly fix, but drozer doesn't seem maintained anymore
+  ln -s /usr/lib/libprotobuf.so $pkgdir/usr/lib/libprotobuf.so.21
 }
