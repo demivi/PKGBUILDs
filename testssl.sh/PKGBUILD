@@ -1,16 +1,16 @@
 pkgname=testssl.sh
-pkgver=3.0
+pkgver=3.0.10.g3da6743
 pkgrel=1
 pkgdesc='Testing TLS/SSL encryption'
 arch=('any')
 url='https://github.com/drwetter/testssl.sh'
 license=('GPL2')
 depends=('bash' 'coreutils' 'util-linux' 'openssl' 'inetutils' 'bind-tools' 'procps-ng')
-source=("$pkgname"::"git+${url}.git")
+source=("$pkgname"::"git+${url}.git#branch=3.1dev")
 md5sums=('SKIP')
 
 pkgver() {
-    cd $pkgname
+    cd $srcdir/$pkgname
     git describe --tags | sed "s/-/./g"
 }
 
