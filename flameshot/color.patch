@@ -1,7 +1,7 @@
-diff -ura flameshot.orig/src/utils/confighandler.cpp flameshot.new/src/utils/confighandler.cpp
---- flameshot.orig/src/utils/confighandler.cpp	2018-11-15 18:08:24.730899380 +0100
-+++ flameshot.new/src/utils/confighandler.cpp	2018-11-16 09:40:45.322720974 +0100
-@@ -75,15 +75,16 @@
+diff -urt flameshot.orig/src/utils/confighandler.cpp flameshot.new/src/utils/confighandler.cpp
+--- flameshot.orig/src/utils/confighandler.cpp	2020-02-29 14:15:14.255261408 +0100
++++ flameshot.new/src/utils/confighandler.cpp	2020-02-29 14:25:34.081602795 +0100
+@@ -77,15 +77,16 @@
  QVector<QColor> ConfigHandler::getUserColors() {
      QVector<QColor> colors;
      const QVector<QColor> &defaultColors = {
@@ -27,3 +27,4 @@ diff -ura flameshot.orig/src/utils/confighandler.cpp flameshot.new/src/utils/con
      };
  
      if (m_settings.contains(QStringLiteral("userColors"))) {
+Only in flameshot.new/src/utils: confighandler.cpp.orig

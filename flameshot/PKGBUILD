@@ -1,5 +1,5 @@
 pkgname=flameshot
-pkgver=v0.6.0.61.gbbe14ad
+pkgver=v0.6.0.70.g91ba28c
 pkgrel=1
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('i686' 'x86_64')
@@ -8,10 +8,11 @@ license=('GPL')
 depends=('qt5-svg')
 makedepends=('qt5-tools' 'gcc' 'make')
 source=("$pkgname"::"git+${url}.git" 
+        "https://raw.githubusercontent.com/demivi/PKGBUILDs/master/flameshot/blur.patch"
         "https://raw.githubusercontent.com/demivi/PKGBUILDs/master/flameshot/clipboard.patch" 
         "https://raw.githubusercontent.com/demivi/PKGBUILDs/master/flameshot/color.patch"
-        "https://raw.githubusercontent.com/demivi/PKGBUILDs/master/flameshot/blur.patch")
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+        "https://raw.githubusercontent.com/demivi/PKGBUILDs/master/flameshot/zoom.patch")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 pkgver() {
   cd $srcdir/$pkgname
@@ -20,9 +21,10 @@ pkgver() {
 
 prepare() {
   cd $srcdir/$pkgname
+  patch -Np1 -i $srcdir/blur.patch
   patch -Np1 -i $srcdir/clipboard.patch
   patch -Np1 -i $srcdir/color.patch
-  patch -Np1 -i $srcdir/blur.patch
+  patch -Np1 -i $srcdir/zoom.patch
 }
 
 build() {

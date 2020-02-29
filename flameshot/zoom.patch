@@ -1,0 +1,64 @@
+diff -urt flameshot.orig/src/widgets/capture/capturewidget.cpp flameshot.new/src/widgets/capture/capturewidget.cpp
+--- flameshot.orig/src/widgets/capture/capturewidget.cpp	2020-02-29 14:15:14.255261408 +0100
++++ flameshot.new/src/widgets/capture/capturewidget.cpp	2020-02-29 14:22:18.803919768 +0100
+@@ -266,6 +266,52 @@
+             painter.drawRoundRect(r, 100, 100);
+         }
+     }
++
++    // Dirty code ahead
++    // TODO: fix the grab of offscreen areas
++    QSize zoom_size(100, 100);
++    float zoom_factor = 3.2;
++    QSize zoom_target(zoom_size*zoom_factor);
++
++    QRectF zoom_area(
++            m_context.mousePos.x() - (zoom_size.width()/2) - 5,
++            m_context.mousePos.y() - (zoom_size.height()/2) - 6,
++            zoom_size.width(),
++            zoom_size.height());
++
++    QPixmap zoom_pixmap = QPixmap::grabWindow(
++            QApplication::desktop()->winId(),
++            zoom_area.x(),
++            zoom_area.y(),
++            zoom_area.width(),
++            zoom_area.height());
++
++    zoom_pixmap = zoom_pixmap.scaled(zoom_target.width(), zoom_target.height(), Qt::KeepAspectRatio);
++
++    QBrush zoom_brush = QBrush(zoom_pixmap);
++    QPainter zoom_painter(this);
++    QSize zoom_position(30, 30);
++
++    QSize zoom_zone(
++            zoom_target.width() + zoom_position.width() + 30,
++            zoom_target.height() + zoom_position.height() + 30);
++
++    if (m_context.mousePos.x() < zoom_zone.width() && m_context.mousePos.y() < zoom_zone.height()) {
++        zoom_position = QSize(zoom_position.width(), zoom_position.height() + zoom_zone.height());
++    }
++
++    zoom_painter.setBrush(zoom_brush);
++    zoom_painter.setRenderHint(QPainter::Antialiasing);
++    zoom_painter.setBrushOrigin(zoom_position.width(), zoom_position.height());
++    zoom_painter.setPen(QPen(Qt::black, 8));
++
++    QRect zoom_rect(
++            zoom_position.width(),
++            zoom_position.height(),
++            zoom_target.width(),
++            zoom_target.height());
++
++    zoom_painter.drawEllipse(zoom_rect);
+ }
+ 
+ void CaptureWidget::mousePressEvent(QMouseEvent *e) {
+@@ -322,6 +368,7 @@
+ 
+ void CaptureWidget::mouseMoveEvent(QMouseEvent *e) {
+     m_context.mousePos = e->pos();
++    update();
+ 
+     if (m_mouseIsClicked && !m_activeButton) {
+         if (m_buttonHandler->isVisible()) {

@@ -1,6 +1,6 @@
-diff -ura flameshot.orig/src/core/flameshotdbusadapter.cpp flameshot.new/src/core/flameshotdbusadapter.cpp
---- flameshot.orig/src/core/flameshotdbusadapter.cpp	2018-11-10 20:04:04.151892091 +0100
-+++ flameshot.new/src/core/flameshotdbusadapter.cpp	2018-11-10 20:18:35.130558769 +0100
+diff -urt flameshot.orig/src/core/flameshotdbusadapter.cpp flameshot.new/src/core/flameshotdbusadapter.cpp
+--- flameshot.orig/src/core/flameshotdbusadapter.cpp	2020-02-29 14:15:14.251928361 +0100
++++ flameshot.new/src/core/flameshotdbusadapter.cpp	2020-02-29 14:27:41.406538899 +0100
 @@ -36,11 +36,13 @@
  
  }
@@ -19,9 +19,9 @@ diff -ura flameshot.orig/src/core/flameshotdbusadapter.cpp flameshot.new/src/cor
      req.setStaticID(id);
      Controller::getInstance()->requestCapture(req);
  }
-diff -ura flameshot.orig/src/core/flameshotdbusadapter.h flameshot.new/src/core/flameshotdbusadapter.h
---- flameshot.orig/src/core/flameshotdbusadapter.h	2018-11-10 20:04:04.151892091 +0100
-+++ flameshot.new/src/core/flameshotdbusadapter.h	2018-11-10 20:18:59.970081937 +0100
+diff -urt flameshot.orig/src/core/flameshotdbusadapter.h flameshot.new/src/core/flameshotdbusadapter.h
+--- flameshot.orig/src/core/flameshotdbusadapter.h	2020-02-29 14:15:14.251928361 +0100
++++ flameshot.new/src/core/flameshotdbusadapter.h	2020-02-29 14:27:41.406538899 +0100
 @@ -33,7 +33,7 @@
      void captureFailed(uint id);
  
@@ -30,23 +30,22 @@ diff -ura flameshot.orig/src/core/flameshotdbusadapter.h flameshot.new/src/core/
 +    Q_NOREPLY void graphicCapture(QString path, bool toClipboard, int delay, uint id);
      Q_NOREPLY void fullScreen(QString path, bool toClipboard, int delay, uint id);
      Q_NOREPLY void captureScreen(int number, QString path, bool toClipboard, int delay, uint id);
-     Q_NOREPLY void openConfig();
-diff -ura flameshot.orig/src/main.cpp flameshot.new/src/main.cpp
---- flameshot.orig/src/main.cpp	2018-11-10 20:04:04.148558828 +0100
-+++ flameshot.new/src/main.cpp	2018-11-10 20:08:17.023205190 +0100
-@@ -193,8 +193,9 @@
+     Q_NOREPLY void openLauncher();
+Only in flameshot.new/src/core: flameshotdbusadapter.h.orig
+diff -urt flameshot.orig/src/main.cpp flameshot.new/src/main.cpp
+--- flameshot.orig/src/main.cpp	2020-02-29 14:15:14.251928361 +0100
++++ flameshot.new/src/main.cpp	2020-02-29 14:30:45.413348982 +0100
+@@ -200,7 +200,8 @@
      parser.AddArgument(configArgument);
      auto helpOption = parser.addHelpOption();
      auto versionOption = parser.addVersionOption();
 -    parser.AddOptions({ pathOption, delayOption, rawImageOption }, guiArgument);
--    parser.AddOptions({ screenNumberOption, clipboardOption,pathOption,
-+    parser.AddOptions({ pathOption, clipboardOption, delayOption, rawImageOption }, 
++    parser.AddOptions({ pathOption, clipboardOption, delayOption, rawImageOption },
 +                      guiArgument);
-+    parser.AddOptions({ screenNumberOption, clipboardOption, pathOption,
+     parser.AddOptions({ screenNumberOption, clipboardOption, pathOption,
                          delayOption, rawImageOption },
                        screenArgument);
-     parser.AddOptions({ pathOption, clipboardOption, delayOption, rawImageOption },
-@@ -214,15 +215,19 @@
+@@ -231,15 +232,19 @@
      else if (parser.isSet(guiArgument)) { // GUI
          QString pathValue = parser.value(pathOption);
          int delay = parser.value(delayOption).toInt();
