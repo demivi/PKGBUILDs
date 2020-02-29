@@ -1,5 +1,5 @@
 pkgname=smbmap
-pkgver=1.1.0.20.g8196f3a
+pkgver=v1.8
 pkgrel=1
 pkgdesc='A pentest tool to map SMB shares'
 arch=('any')
