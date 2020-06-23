@@ -1,6 +1,6 @@
 pkgbase=python-ldapdomaindump
 pkgname=('python-ldapdomaindump' 'python2-ldapdomaindump')
-pkgver=v0.9.1.8.g7a59286
+pkgver=v0.9.3
 pkgrel=1
 pkgdesc='Active Directory information dumper via LDAP.'
 arch=('any')
