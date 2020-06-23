@@ -1,5 +1,5 @@
 pkgname=enjarify
-pkgver=1.0.3.15.gb5dccde
+pkgver=1.0.3.16.g6364dfb
 pkgrel=1
 pkgdesc='A tool for translating Dalvik bytecode to equivalent Java bytecode'
 arch=('any')
