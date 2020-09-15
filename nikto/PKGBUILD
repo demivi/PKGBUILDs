@@ -1,5 +1,5 @@
 pkgname=nikto
-pkgver=2.1.6.719.gffc7efe
+pkgver=2.1.6.721.gfb2655b
 pkgrel=1
 pkgdesc='A web server scanner'
 arch=('any')
