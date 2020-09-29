@@ -57,8 +57,6 @@ The following packages are meant to be based on dev versions:
 
 Note that enjarify and responder packages are based on maintained forks (from the original author regarding responder).
 
-## nr packages
+## cmsmap warning
 
-Here are the reasons you might not want to use the packages starting with `nr` (for Not Recommended):
-
-- cmsmap: the package itselft is lightweith but it requires the `exploitdb` database and clones the 4 supported CMS repositories which makes for an approximative installation size of 1.8 GB...
+The package itselft is lightweith but it requires the `exploitdb` database and clones the 4 supported CMS repositories at first start which makes for an approximative installation size of 1.8 GB...

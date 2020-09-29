@@ -1,4 +1,4 @@
-pkgname=nr-cmsmap
+pkgname=cmsmap
 pkgver=20181026
 pkgrel=1
 pkgdesc='Open source CMS scanner'
@@ -16,5 +16,6 @@ pkgver() {
 
 package() {
   cd $srcdir/CMSmap
+  sed -i "s/^__version__ =.*$/__version__ = '$pkgver-$pkrel'/" cmsmap/version.py
   python setup.py install --root="$pkgdir" --optimize=1
 }
