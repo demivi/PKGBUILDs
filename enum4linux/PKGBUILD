@@ -1,5 +1,5 @@
 pkgname=enum4linux
-pkgver=20180315
+pkgver=20201211
 pkgrel=1
 pkgdesc='A tool for information enumeration on Windows and Samba hosts'
 arch=('any')

@@ -1,11 +1,11 @@
 pkgname=smbmap
-pkgver=v1.8.2.22.g9a40a69
+pkgver=v1.8.2.24.g6151db7
 pkgrel=1
 pkgdesc='A pentest tool to map SMB shares'
 arch=('any')
 url='https://github.com/ShawnDEvans/smbmap'
 license=('GPL')
-depends=('impacket')
+depends=('impacket' 'python-termcolor')
 source=("$pkgname"::"git+${url}.git")
 md5sums=('SKIP')
 

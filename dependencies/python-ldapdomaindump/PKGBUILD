@@ -1,12 +1,11 @@
-pkgbase=python-ldapdomaindump
-pkgname=('python-ldapdomaindump' 'python2-ldapdomaindump')
-pkgver=v0.9.3
+pkgname=python-ldapdomaindump
+pkgver=v0.9.3.2.g4357a84
 pkgrel=1
 pkgdesc='Active Directory information dumper via LDAP.'
 arch=('any')
 url='https://github.com/dirkjanm/ldapdomaindump'
 license=('MIT')
-makedepends=('git' 'python-setuptools' 'python2-setuptools')
+makedepends=('git' 'python-setuptools')
 source=("git+https://github.com/dirkjanm/ldapdomaindump.git")
 sha1sums=('SKIP')
 
@@ -15,29 +14,13 @@ pkgver() {
   git describe --tags | sed "s/-/./g"
 }
 
-prepare() {
-    cp -a ldapdomaindump{,-py2}
-}
-
 build() {
     cd "$srcdir/ldapdomaindump"
     python setup.py build
-
-    cd "$srcdir/ldapdomaindump-py2"
-    python2 setup.py build
 }
 
-package_python-ldapdomaindump() {
+package() {
   depends=('python' 'python-dnspython' 'python-ldap3')
   cd "$srcdir/ldapdomaindump"
   python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
-}
-
-package_python2-ldapdomaindump() {
-  depends=('python2' 'python2-dnspython' 'python2-ldap3')
-  cd "$srcdir/ldapdomaindump-py2"
-  python2 setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
-
-  # We don't keep the files in /usr/bin for the python 2 version
-  rm -r "$pkgdir/usr/bin"
 }

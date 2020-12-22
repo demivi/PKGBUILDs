@@ -1,11 +1,11 @@
 pkgname=polenum
-pkgver=1.4
-pkgrel=2
+pkgver=1.6.1
+pkgrel=1
 pkgdesc='Get the password policy from a windows machine'
 arch=('any')
 url='https://github.com/Wh1t3Fox/polenum'
 license=('GPL3')
-depends=('python2-impacket')
+depends=('impacket')
 source=("https://github.com/Wh1t3Fox/polenum/archive/$pkgver.zip")
 md5sums=('SKIP')
 
