@@ -1,5 +1,5 @@
 pkgname=responder
-pkgver=v3.0.6.0.7.g3fe5746
+pkgver=v3.1.1.0.1.g5cf6922
 pkgrel=1
 pkgdesc='LLMNR/NBT-NS/mDNS Poisoner'
 arch=('any')

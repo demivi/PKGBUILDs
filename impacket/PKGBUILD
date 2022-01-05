@@ -1,5 +1,5 @@
 pkgname=impacket
-pkgver=0_9_23.4.g11f43043
+pkgver=0_9_24.1.g1dad8f7f
 pkgrel=1
 pkgdesc='A collection of Python classes for working with network protocols'
 arch=('any')
