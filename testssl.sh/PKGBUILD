@@ -1,5 +1,5 @@
 pkgname=testssl.sh
-pkgver=v3.0.711.ge35f0e8
+pkgver=v3.0.815.ge821787
 pkgrel=1
 pkgdesc='Testing TLS/SSL encryption'
 arch=('any')
